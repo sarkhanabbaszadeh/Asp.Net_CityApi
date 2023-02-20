@@ -9,5 +9,7 @@
 		public DateTime DataAdded { get; set; }
 		public bool IsMain { get; set; }
 		public string PuplicId { get; set; }
+
+		public City City { get; set; }
 	}
 }
