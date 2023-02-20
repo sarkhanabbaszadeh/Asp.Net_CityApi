@@ -3,7 +3,7 @@
 	public class Photo
 	{
 		public int id { get; set; }
-		public string CityId { get; set; }
+		public int CityId { get; set; }
 		public string Url { get; set; }
 		public string Description { get; set; }
 		public DateTime DataAdded { get; set; }
