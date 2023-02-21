@@ -7,10 +7,12 @@ namespace Asp.Net_CityApi.Data
 	{
 		public DataContext(DbContextOptions options) : base(options)
 		{
-
+			
 		}
-
-		public DbSet<Value> Values {get; set;}
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			optionsBuilder.UseSqlServer("server=SABBASZADA-N\\MSSQLSERVER2;database=CityApi;integrated security=true;encrypt=false");
+		}
 
 		public DbSet<City> Cities { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿using Asp.Net_CityApi.Data;
 using Asp.Net_CityApi.Dtos;
-using Microsoft.AspNetCore.Http;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Asp.Net_CityApi.Controllers
@@ -10,10 +10,12 @@ namespace Asp.Net_CityApi.Controllers
 	public class CitiesController : ControllerBase
 	{
 		private IAppRepository _appRepository;
+		private IMapper _mapper;
 
-		public CitiesController(IAppRepository appRepository)
+		public CitiesController(IAppRepository appRepository, IMapper mapper)
 		{
 			_appRepository = appRepository;
+			_mapper = mapper;
 		}
 
 		public ActionResult GetCities()
@@ -23,7 +25,7 @@ namespace Asp.Net_CityApi.Controllers
 			//	new CityForListDto { Id = c.Id, PhotoUrl = c.Photos.FirstOrDefault(p => p.IsMain == true).Url, Description = c.Description, Name = c.Name }).ToList();
 			var cities=_appRepository.GetCities();
 			var citiesToReturn = _mapper.Map<List<CityForListDto>>(cities);
-			return Ok(cities);
+			return Ok(citiesToReturn);
 		}
 	}
 }
