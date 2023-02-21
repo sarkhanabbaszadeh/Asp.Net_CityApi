@@ -1,5 +1,9 @@
 ﻿using Asp.Net_CityApi.Data;
 using Asp.Net_CityApi.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Configuration;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +16,24 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 builder.Services.AddDbContext<DataContext>();
+
 builder.Services.AddTransient<IAppRepository, AppRepository>();
+var config = new ConfigurationBuilder()
+				 .SetBasePath(Directory.GetCurrentDirectory())
+				 .AddJsonFile("appsettings.json")
+				 .Build();
+var key = Encoding.ASCII.GetBytes(config.GetSection("AppSettings:Token").Value);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+	options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+	{
+		ValidateIssuerSigningKey = true,
+		IssuerSigningKey = new SymmetricSecurityKey(key),
+		ValidateIssuer= false,
+		ValidateAudience=false,
+	};
+});
 
 builder.Services.AddMvc().AddJsonOptions(opt =>
 {
@@ -29,6 +50,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 
 app.UseAuthorization();
 
