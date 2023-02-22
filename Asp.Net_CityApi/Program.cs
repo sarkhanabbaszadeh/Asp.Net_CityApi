@@ -17,7 +17,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 builder.Services.AddDbContext<DataContext>();
 
-builder.Services.AddTransient<IAppRepository, AppRepository>();
+builder.Services.AddScoped<IAppRepository, AppRepository>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+
 var config = new ConfigurationBuilder()
 				 .SetBasePath(Directory.GetCurrentDirectory())
 				 .AddJsonFile("appsettings.json")
