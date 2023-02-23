@@ -14,6 +14,8 @@ namespace Asp.Net_CityApi.Helpers
 			});
 
 			CreateMap<City, CityForDetailDto>();
+			CreateMap<Photo, PhotoForCreationDto>();
+			CreateMap<PhotoForReturnDto, Photo>();
 		} 
 	}
 }
