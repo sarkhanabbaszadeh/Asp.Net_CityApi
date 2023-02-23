@@ -2,7 +2,6 @@
 using Asp.Net_CityApi.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Configuration;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -36,6 +35,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 		ValidateAudience=false,
 	};
 });
+
+builder.Services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
 
 builder.Services.AddMvc().AddJsonOptions(opt =>
 {
