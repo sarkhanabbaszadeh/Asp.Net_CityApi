@@ -1,4 +1,4 @@
 # Asp.Net CityApi (WebApi)
 --------------------------------
-# AutoMapper
++ AutoMapper
 # Newtonsoft.Json
