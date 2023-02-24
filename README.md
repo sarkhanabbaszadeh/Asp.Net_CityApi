@@ -1,4 +1,5 @@
-# Asp.Net CityApi (WebApi)
+# Asp.Net CityApi (Web Api)
 --------------------------------
 + AutoMapper
 + Newtonsoft.Json
++ CloudinaryDotNet
