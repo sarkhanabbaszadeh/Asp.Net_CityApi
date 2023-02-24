@@ -43,6 +43,14 @@ builder.Services.AddMvc().AddJsonOptions(opt =>
 	opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
+builder.Services.AddCors(opt =>
+{
+	opt.AddDefaultPolicy(builder =>
+	{
+		builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+	});
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -56,6 +64,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+app.UseCors();
 
 app.MapControllers();
 
